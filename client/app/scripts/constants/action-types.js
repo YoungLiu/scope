@@ -53,6 +53,7 @@ const ACTION_TYPES = [
   'PIN_NETWORK',
   'UNPIN_NETWORK',
   'SHOW_NETWORKS',
+  'SORT_ORDER_CHANGED'
 ];
 
 export default _.zipObject(ACTION_TYPES, ACTION_TYPES);

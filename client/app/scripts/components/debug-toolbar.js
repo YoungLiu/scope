@@ -42,7 +42,21 @@ const LABEL_PREFIXES = _.range('A'.charCodeAt(), 'Z'.charCodeAt() + 1)
   .map(n => String.fromCharCode(n));
 
 
-// const randomLetter = () => _.sample(LABEL_PREFIXES);
+export const deltaAdd = (name, adjacency = [], shape = 'circle',
+  stack = false, nodeCount = 1, labelMinor = name) => ({
+    adjacency,
+    controls: {},
+    shape,
+    stack,
+    node_count: nodeCount,
+    id: name,
+    label: name,
+    label_minor: labelMinor,
+    latest: {},
+    metadata: {},
+    origins: [],
+    rank: name
+  });
 
 
 const deltaAdd = (
@@ -115,6 +129,25 @@ function startPerf(delay) {
   Perf.start();
   setTimeout(stopPerf, delay * 1000);
 }
+
+
+export function makeNodes(n, prefix, maxConns = 4, shape = null) {
+  const ns = AppStore.getNodes();
+  const nodeNames = ns.keySeq().toJS();
+  const newNodeNames = _.range(ns.size, ns.size + n).map(i => (
+    `${prefix}${i}`
+  ));
+  const allNodes = _(nodeNames).concat(newNodeNames).value();
+
+  return newNodeNames.map((name) => deltaAdd(
+    name,
+    sample(allNodes, maxConns),
+    shape || _.sample(SHAPES),
+    _.sample(STACK_VARIANTS),
+    _.sample(NODE_COUNTS)
+  ));
+}
+
 
 export function showingDebugToolbar() {
   return (('debugToolbar' in localStorage && JSON.parse(localStorage.debugToolbar))

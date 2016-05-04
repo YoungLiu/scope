@@ -4,7 +4,6 @@ import { Map as makeMap } from 'immutable';
 
 import ShowMore from '../show-more';
 import NodeDetailsTableRow from './node-details-table-row';
-import { sortOrderChanged } from '../../actions/app-actions';
 
 
 function isNumberField(field) {
@@ -95,7 +94,6 @@ export default class NodeDetailsTable extends React.Component {
       ? !this.state.sortedDesc : this.state.sortedDesc;
     const sortBy = headerId;
     this.setState({sortBy, sortedDesc});
-    sortOrderChanged({sortBy, sortedDesc});
   }
 
   handleLimitClick() {

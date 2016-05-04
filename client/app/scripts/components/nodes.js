@@ -9,7 +9,6 @@ import { CANVAS_MARGINS } from '../constants/styles';
 
 const navbarHeight = 160;
 const marginTop = 0;
-const detailsWidth = 450;
 
 /**
  * dynamic coords precision based on topology size
@@ -65,9 +64,8 @@ class Nodes extends React.Component {
   }
 
   render() {
-    const { nodes, selectedNodeId, topologyEmpty } = this.props;
+    const { nodes, topologyEmpty, highlightedNodeIds } = this.props;
     const layoutPrecision = getLayoutPrecision(nodes.size);
-    const hasSelectedNode = selectedNodeId && nodes.has(selectedNodeId);
     const errorEmpty = this.renderEmptyTopologyError(topologyEmpty);
 
     return (
@@ -75,12 +73,12 @@ class Nodes extends React.Component {
         {topologyEmpty && errorEmpty}
         <NodesGrid {...this.state}
           nodeSize="24"
+          nodes={nodes}
           width={1300}
           height={780}
           margins={CANVAS_MARGINS}
-          detailsWidth={detailsWidth}
           layoutPrecision={layoutPrecision}
-          hasSelectedNode={hasSelectedNode}
+          highlightedNodeIds={highlightedNodeIds}
         />
       </div>
     );
@@ -101,8 +99,8 @@ class Nodes extends React.Component {
 function mapStateToProps(state) {
   return {
     nodes: state.get('nodes'),
-    selectedNodeId: state.get('selectedNodeId'),
     topologyEmpty: isTopologyEmpty(state),
+    highlightedNodeIds: state.get('highlightedNodeIds')
   };
 }
 

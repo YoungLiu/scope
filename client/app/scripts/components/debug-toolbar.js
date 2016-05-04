@@ -131,13 +131,11 @@ function startPerf(delay) {
 }
 
 
-export function makeNodes(n, prefix, maxConns = 4, shape = null) {
-  const ns = AppStore.getNodes();
-  const nodeNames = ns.keySeq().toJS();
-  const newNodeNames = _.range(ns.size, ns.size + n).map(i => (
+export function makeNodes(n, existingNodeNames = [], prefix = 'n', maxConns = 4, shape = null) {
+  const newNodeNames = _.range(existingNodeNames.length, existingNodeNames.length + n).map(i => (
     `${prefix}${i}`
   ));
-  const allNodes = _(nodeNames).concat(newNodeNames).value();
+  const allNodes = _(existingNodeNames).concat(newNodeNames).value();
 
   return newNodeNames.map((name) => deltaAdd(
     name,
@@ -198,7 +196,7 @@ class DebugToolbar extends React.Component {
   addNodes(n, prefix = 'zing') {
     const ns = this.props.nodes;
     const nodeNames = ns.keySeq().toJS();
-    const newNodeNames = _.range(ns.size, ns.size + n).map(i => (
+    const newNodeNames = _.range(nodeNames.length, nodeNames.length + n).map(i => (
       // `${randomLetter()}${randomLetter()}-zing`
       `${prefix}${i}`
     ));

@@ -5,7 +5,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Map as makeMap, fromJS, is as isDeepEqual } from 'immutable';
 import timely from 'timely';
-import { Set as makeSet } from 'immutable';
 
 import { clickBackground } from '../actions/app-actions';
 import { EDGE_ID_SEPARATOR } from '../constants/naming';
@@ -13,8 +12,7 @@ import { DETAILS_PANEL_WIDTH } from '../constants/styles';
 import Logo from '../components/logo';
 import { doLayout } from './nodes-layout';
 import NodesChartElements from './nodes-chart-elements';
-import { getActiveTopologyOptions, getAdjacentNodes,
-  isSameTopology } from '../utils/topology-utils';
+import { getActiveTopologyOptions, getAdjacentNodes } from '../utils/topology-utils';
 
 const log = debug('scope:nodes-chart');
 
@@ -83,10 +81,10 @@ class NodesChart extends React.Component {
     state.height = nextProps.height;
     state.width = nextProps.width;
 
-    _.assign(state, this.updateGraphState(nextProps, state));
-    // if (nextProps.forceRelayout || nextProps.nodes !== this.props.nodes) {
-      // _.assign(state, this.updateGraphState(nextProps, state));
-    // }
+    // _.assign(state, this.updateGraphState(nextProps, state));
+    if (nextProps.forceRelayout || nextProps.nodes !== this.props.nodes) {
+      _.assign(state, this.updateGraphState(nextProps, state));
+    }
 
     if (this.props.selectedNodeId !== nextProps.selectedNodeId) {
       _.assign(state, this.restoreLayout(state));
@@ -343,7 +341,6 @@ class NodesChart extends React.Component {
       nodeOrder
     };
 
-    console.log('nodes-chart', state.height);
     const timedLayouter = timely(doLayout);
     const graph = timedLayouter(stateNodes, stateEdges, options);
 

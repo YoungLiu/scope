@@ -42,23 +42,6 @@ const LABEL_PREFIXES = _.range('A'.charCodeAt(), 'Z'.charCodeAt() + 1)
   .map(n => String.fromCharCode(n));
 
 
-export const deltaAdd = (name, adjacency = [], shape = 'circle',
-  stack = false, nodeCount = 1, labelMinor = name) => ({
-    adjacency,
-    controls: {},
-    shape,
-    stack,
-    node_count: nodeCount,
-    id: name,
-    label: name,
-    label_minor: labelMinor,
-    latest: {},
-    metadata: {},
-    origins: [],
-    rank: name
-  });
-
-
 const deltaAdd = (
   name, adjacency = [], shape = 'circle', stack = false, nodeCount = 1,
     networks = NETWORKS

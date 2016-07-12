@@ -18,9 +18,11 @@ export function showHelp() {
   return {type: ActionTypes.SHOW_HELP};
 }
 
+
 export function hideHelp() {
   return {type: ActionTypes.HIDE_HELP};
 }
+
 
 export function toggleHelp() {
   return (dispatch, getState) => {
@@ -32,12 +34,14 @@ export function toggleHelp() {
   };
 }
 
+
 export function sortOrderChanged(newOrder) {
-  AppDispatcher.dispatch({
+  return {
     type: ActionTypes.SORT_ORDER_CHANGED,
     newOrder
-  });
+  };
 }
+
 
 //
 // Networks
@@ -85,17 +89,11 @@ export function unpinNetwork(networkId) {
   };
 }
 
-export function sortOrderChanged(newOrder) {
-  AppDispatcher.dispatch({
-    type: ActionTypes.SORT_ORDER_CHANGED,
-    newOrder
-  });
-}
-
 
 //
 // Metrics
 //
+
 
 export function selectMetric(metricId) {
   return {

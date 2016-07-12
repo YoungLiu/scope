@@ -51,8 +51,8 @@ function runLayoutEngine(graph, imNodes, imEdges, opts) {
   graph.setGraph({
     nodesep,
     ranksep,
-    rankdir: 'LR',
-    align: 'UL'
+    // rankdir: 'LR',
+    // align: 'UL'
   });
 
   // add nodes to the graph if not already there
@@ -395,7 +395,8 @@ export function doLayout(immNodes, immEdges, opts) {
   let layout;
 
   ++layoutRuns;
-  if (false && !options.forceRelayout && cachedLayout && nodeCache && edgeCache
+  // if (false && !options.forceRelayout && cachedLayout && nodeCache && edgeCache
+  if (!options.forceRelayout && cachedLayout && nodeCache && edgeCache
     && !hasUnseenNodes(immNodes, nodeCache)) {
     log('skip layout, trivial adjustment', ++layoutRunsTrivial, layoutRuns);
     layout = cloneLayout(cachedLayout, immNodes, immEdges);
@@ -410,7 +411,7 @@ export function doLayout(immNodes, immEdges, opts) {
     }
     layout = layoutSingleNodes(layout, opts);
     layout = shiftLayoutToCenter(layout, opts);
-    layout = uniqueRowConstraint(layout, opts);
+    // layout = uniqueRowConstraint(layout, opts);
   }
 
   // cache results
